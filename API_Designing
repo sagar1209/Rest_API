@@ -1,0 +1,168 @@
+STEP 1: Create a new API
+    Title: OpenApi specification for cms
+    description: API specifications for CMS system
+    contact: ABhi trivedi (contact number/ email addr.)
+    version: 1.0
+    
+STEP 2: Identify the type of API
+    type: public API
+
+STEP 3: Indentify the Server base url
+    http://{hostname}:{port number}/{Directory name}
+
+STEP 4: IDENTIFY THE RESOURCES
+    Course
+    Student
+
+STEP 5: Have the resoursec as plural
+    courses (/api/courses)
+    students (/api/students)
+
+STEP 6: Define the resourse model
+    Course Model
+        Course ID
+        Course Name
+        Course duration
+        Course Type
+    Student Model
+        Student ID
+        First Name
+        Last Name
+        Phone Number
+        Address
+
+STEP 7: Select the identifier for each resourse
+    Course Model
+        Course ID (IDENTIFIER)
+        Course Name
+        Course duration
+        Course Type
+    Student Model
+        Student ID (IDENTIFIER)
+        First Name
+        Last Name
+        Phone Number
+        Address
+
+STEP 8: Find the assciation for each resource
+    courses
+        /api/courses/{:course id}/students
+    students
+
+STEP 9: Check for the URL complexity
+    courses
+        /api/courses
+        /api/courses/{courseId}
+        /api/courses/{courseId}/students
+    
+    students
+        /api/students
+        /api/students/{studentId}
+
+STEP 10: Identify the operations for each RESOURCES
+    courses
+        /api/courses
+            GET
+            POST
+        /api/courses/{courseId}
+            GET
+            PUT
+            PATCH
+            DELETE
+        /api/courses/{courseId}/students
+            GET
+            POST
+
+    students
+        /api/students
+            GET
+            POST
+        /api/students/{studentId}
+            GET
+            PUT
+            DELETE
+            PATCH
+
+STEP 11: Identify the parameters required for the requests
+    Query parameters
+        None
+
+    Path parameters
+        None - collections
+        courseId - Unique for items of course model
+
+    Headers
+        None
+
+    Cookies
+        None
+
+STEP 12: Identify the content-type for the requests
+    application/json
+
+STEP 13: Identify the request body for the operations
+
+STEP 14: Identify the HTTP status codes for the operations
+    /api/courses
+        GET
+            HTTP 200 ok
+        POST
+            HTTP 201 created
+            HTTP 400 Bad request
+    
+    /api/courses/{courseId}
+        GET
+            HTTP 200 OK
+            HTTP 404 NOT FOUND
+        PUT
+            HTTP 200 OK
+            HTTP 400 BAD request
+            HTTP 404 NOT FOUND
+        DELETE
+            HTTP 204 NO CONTENT
+            HTTP 404 NOT FOUND
+
+    /api/courses/{courseId}/students
+        GET
+            HTTP 200 ok
+        POST
+            HTTP 201 created
+            HTTP 400 Bad request
+        
+STEP 15: Identify the content-type of response operations
+    application/json
+
+STEP 16: Identify the response body for the operations
+
+STEP 17: Handle errors
+    {
+        "error": 
+        {
+            "code",
+            "message"
+        }
+    }
+
+STEP 18: Identify the need for filtering and add in operations
+GET /api/courses
+Request:
+    courseType:
+        -Support for filtering
+
+STEP 19: Identify the need for pagination and add if needed
+GET /api/courses
+Request:
+    page:
+        -Support for pagination.
+    size:
+        -Support for pagination.
+
+STEP 20: Identify the need for sorting and add if needed.
+GET /api/courses
+Request:
+    sortBy:
+        -Support for sorting.
+
+STEP 21: Identify the API versioning scheme and set the API version
+Versioning Scheme: URL versioning
+Version: 1.0

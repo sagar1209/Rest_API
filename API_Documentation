@@ -1,0 +1,345 @@
+API for College Management system (CMS)
+
+API OVERVIEW
+============
+Title: openAPI specification for CMS
+Description: API doumentation for CMS system
+Contact: Abhi Trivedi
+Version: 1.0
+API Type: Public
+Server base URL: http://localhost:3000 (dev server)
+
+---------------------------------------------------------------
+courses
+=======
+GET /api/v1/courses
+Content-Type: application/json
+Request: 
+    Query parameters (optional):
+    courseType:
+        -support filtering.
+        -Filter the result by course type.
+        -Example: /api/courses?courseType=Engineering
+    page:
+        -Support for pagination.
+        -Page number of result to fetch.
+        -Example: /api/courses?page=3&size=4
+    size:
+        -Support for pagination.
+        -Page size of each result.
+        -Example: /api/courses?page=3&size=4
+    sortBy:
+        -Support for sorting.
+        -Sort the result by given field name.
+        -Example: /api/courses?sortBy=courseName 
+
+Response:
+    HTTP 200 OK
+    Response body format:
+    [
+        {
+            "courseId",
+            "courseName",
+            "courseDuration",
+            "courseType"
+        }
+    ]
+    Example: 
+    [
+        {
+            "courseId": 10,
+            "courseName": "Computer Science",
+            "courseDuration": 4,
+            "courseType": "Engineering"
+        }
+    ]
+
+-------------------------------------------------------------
+POST /api/v1/courses
+Content-Type: application/json
+Request:
+    Request body format:
+    {
+        "courseName"
+        "coureseDuration"
+        "courseType"
+    }
+    Example: 
+    {
+        "courseName": "Computer Science",
+        "courseDuration": 4,
+        "courseType": "Engineering"
+    }
+Response: 
+    HTTP 201 CREATED
+    Response body format:
+    {
+        "courseId",
+        "courseName",
+        "courseDuration",
+        "courseType"
+    }
+    Example: 
+    {
+        "courseId": 10
+        "courseName": "Computer Science",
+        "courseDuration": 4,
+        "courseType": "Engineering"
+    }
+
+    HTTP 400 BAD REQUEST
+    Response body format:
+    {
+        "error":
+        {
+            "code",
+            "message",
+        }
+    }
+    Example:
+    {
+        "error": 
+        {
+            "code": "INVALID_INPUT",
+            "message": "One or more input arguments are invalid."
+        }
+    }
+
+-------------------------------------------------------------
+GET /api/v1/courses/{courseId}
+Content-Type: application/json
+Request: None
+RESPONSE:
+    HTTP 200 OK
+    Response body format:
+    {
+        "courseId",
+        "courseName",
+        "courseDuration",
+        "courseType"
+    }
+    Example:
+    {
+        "courseId": 10,
+        "courseName": "Computer Science",
+        "courseDuration": 4,
+        "courseType": "Engineering"
+    }
+
+    HTTP 404 NOT FOUND
+    {
+        "error":
+        {
+            "code",
+            "message"
+        }
+    }
+    Example:
+    {
+        "error": 
+        {
+            "code": INVALID_PATH,
+            "message": "Path is invalid."
+        }
+    }
+
+-------------------------------------------------------------
+PUT /api/v1/courses/{courseId}
+Content-Type: application/json
+Request:
+    Request body format:
+    {
+        "courseName"
+        "coureseDuration"
+        "courseType"
+    }
+    Example: 
+    {
+        "courseName": "Computer Science",
+        "courseDuration": 4,
+        "courseType": "Engineering"
+    }
+RESPONSE:
+    HTTP 200 OK
+    Response body format:
+    {
+        "courseId",
+        "courseName",
+        "courseDuration",
+        "courseType"
+    }
+    Example: 
+    {
+        "courseId": 10
+        "courseName": "Computer Science",
+        "courseDuration": 4,
+        "courseType": "Engineering"
+    }
+
+    HTTP 404 NOT FOUND
+    --refer GET /api/courses/{courseId}
+
+-------------------------------------------------------------
+DELETE /api/v1/courses/{courseId}
+Content-Type: application/json
+Request: None
+RESPONSE:
+    HTTP 204 NO CONTENT
+    response body format: None
+
+    HTTP 404 NOT FOUND
+    Response body format:
+    --refer GET /api/courses/{courseId}
+
+-------------------------------------------------------------
+GET /api/v1/courses/{courseId}/students
+Content-Type: application/json
+Request: None
+RESPONSE:
+    HTTP 200 OK
+    Response body format:
+    [
+        {
+            "studentId",
+            "firstName",
+            "lastName",
+            "phoneNumber",
+            "address"
+        }
+    ]
+    Example:
+    [ 
+        {
+            "studentId": 101,
+            "firstName": "Abhi",
+            "lastName": "Trivedi",
+            "phoneNumber": "6352386014",
+            "address": "Surat"
+        }
+    ]
+
+    HTTP 404 NOT FOUND
+    --refer GET /api/courses
+
+-------------------------------------------------------------
+POST /api/v1/courses/{courseId}/students
+Content-Type: application/json
+Request:
+    Request body format:
+    {
+        "firstName"
+        "lastName"
+        "phoneNumber"
+        "address"
+    }
+    Example: 
+    {
+        "firstName": "Abhi",
+        "lastName": "Trivedi",
+        "phoneNumber": "6352386014",
+        "address": "Surat"
+    }
+RESPONSE:
+    HTTP 201 CREATED
+    Response body format:
+    {
+        "studentId",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "address"
+    }
+    Example: 
+    {
+        "studentId": 101
+        "firstName": "Abhi",
+        "lastName": "Trivedi",
+        "phoneNumber": "6352386014",
+        "address": "Surat"
+    }
+
+    HTTP 400 BAD REQUEST
+    --refer POST /api/v1/courses
+    
+-------------------------------------------------------------
+students
+==========
+GET /api/v1/students
+Content-Type: application/json
+Request: 
+    Query parameters (optional):
+    sortBy:
+        -Support for sorting.
+        -Sort the results by given field.
+        -Example: /api/v1/students?sortBy=firstName
+    page:
+        -Support for pagination.
+        -Page number of page for result to fetch
+        -Example: /api/v1/students?page=3&size=10
+    size:
+        -Support for pagination.
+        -Size of the results to fetch.
+        -Example: /api/v1/students?page=2&size=5
+
+RESPONSE:
+    HTTP 200 OK
+    Response body format:
+    [
+        {
+            "studentId",
+            "firstName",
+            "lastName",
+            "phoneNumber",
+            "address"
+        }
+    ]
+    Example:
+    [ 
+        {
+            "studentId": 101,
+            "firstName": "Abhi",
+            "lastName": "Trivedi",
+            "phoneNumber": "6352386014",
+            "address": "Surat"
+        }
+    ]
+
+-------------------------------------------------------------
+POST /api/v1/students
+Content-Type: application/json
+Request:
+    Request body format:
+    {
+        "firstName"
+        "lastName"
+        "phoneNumber"
+        "address"
+    }
+    Example: 
+    {
+        "firstName": "Abhi",
+        "lastName": "Trivedi",
+        "phoneNumber": "6352386014",
+        "address": "Surat"
+    }
+RESPONSE:
+    HTTP 201 CREATED
+    Response body format:
+    {
+        "studentId",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "address"
+    }
+    Example: 
+    {
+        "studentId": 101
+        "firstName": "Abhi",
+        "lastName": "Trivedi",
+        "phoneNumber": "6352386014",
+        "address": "Surat"
+    }
+
+    HTTP 400 BAD REQUEST
+    --refer POST /api/v1/course
